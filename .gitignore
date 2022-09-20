@@ -1,0 +1,7 @@
+/vendor/
+.DS_Store
+/generate
+
+antiseptic.phar
+box.phar
+/.box_dump

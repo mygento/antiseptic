@@ -1,0 +1,25 @@
+{
+    "name": "mygento/antiseptic",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mygento",
+            "email": "connect@mygento.net"
+        }
+    ],
+    "description": "Cli tool to dump database and anonymize data",
+    "require": {
+        "symfony/console": "^5.4",
+        "symfony/yaml": "^5.4"
+    },
+    "autoload": {
+        "psr-4": { "Mygento\\Antiseptic\\": "src/Antiseptic" }
+    },
+    "config": {
+        "platform": {
+            "php": "7.3.33"
+        }
+    },
+    "bin": ["bin/antiseptic"]
+}
