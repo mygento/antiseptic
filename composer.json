@@ -11,7 +11,13 @@
     "description": "Cli tool to dump database and anonymize data",
     "require": {
         "symfony/console": "^5.4",
-        "symfony/yaml": "^5.4"
+        "symfony/yaml": "^5.4",
+        "ifsnop/mysqldump-php": "^2.9",
+        "fakerphp/faker": "^1.20",
+        "mygento/coding-standard": "~2.14.0-beta5"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "1.2.0 as 0.12.23"
     },
     "autoload": {
         "psr-4": { "Mygento\\Antiseptic\\": "src/Antiseptic" }
@@ -19,6 +25,9 @@
     "config": {
         "platform": {
             "php": "7.3.33"
+        },
+        "allow-plugins": {
+            "phpro/grumphp": true
         }
     },
     "bin": ["bin/antiseptic"]

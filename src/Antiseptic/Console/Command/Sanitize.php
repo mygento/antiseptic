@@ -2,6 +2,7 @@
 
 namespace Mygento\Antiseptic\Console\Command;
 
+use Mygento\Antiseptic\Sanitizer\Sanitizer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,8 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Sanitize extends Command
 {
-    private const ARG_CONFIG = 'config';
-    private const ARG_OUTPUT_DUMP = 'output-dump';
+    private const ARG_CONFIG_FILE = 'config-file';
+    private const ARG_DUMP_FILE = 'dump-file';
 
     /**
      * @inheritDoc
@@ -20,8 +21,8 @@ class Sanitize extends Command
         $this
             ->setName('sanitize')
             ->setDefinition([
-                new InputArgument(self::ARG_CONFIG, InputArgument::REQUIRED, 'YAML Configuration file'),
-                new InputArgument(self::ARG_OUTPUT_DUMP, InputArgument::REQUIRED, 'Path to output dump file'),
+                new InputArgument(self::ARG_CONFIG_FILE, InputArgument::REQUIRED, 'YAML Configuration file'),
+                new InputArgument(self::ARG_DUMP_FILE, InputArgument::REQUIRED, 'Path to output dump file'),
             ])
             ->setDescription('Creates dump and anonymize data')
             ->setHelp(
@@ -36,13 +37,13 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        //todo: remove with right logic
-        $output->writeln('<info>You are great!</info>');
+        $config = $input->getArgument(self::ARG_CONFIG_FILE);
+        $dumpFile = $input->getArgument(self::ARG_DUMP_FILE);
 
-        $config = $input->getArgument(self::ARG_CONFIG);
-        $outputDump = $input->getArgument(self::ARG_OUTPUT_DUMP);
+        $sanitizer = new Sanitizer();
+        $sanitizer->sanitize($config, $dumpFile, $output);
 
-        $output->writeln(sprintf("You entered:\n%s - for config argument.\n%s - for output-dump argument", $config, $outputDump));
+        $output->writeln('<info>Dump created successfully</info>');
 
         return self::SUCCESS;
     }

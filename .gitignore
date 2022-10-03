@@ -1,6 +1,7 @@
 /vendor/
 .DS_Store
 /generate
+.php_cs.cache
 
 antiseptic.phar
 box.phar
