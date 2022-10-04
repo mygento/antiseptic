@@ -2,6 +2,7 @@
 
 namespace Mygento\Antiseptic\Sanitizer;
 
+use Faker\Generator;
 use Mygento\Antiseptic\Config\ConfigProcessor;
 use Mygento\Antiseptic\Dumper\DumperBuilder;
 use Mygento\Antiseptic\Dumper\DumperInterface;
@@ -10,6 +11,7 @@ use Mygento\Antiseptic\Sanitizer\DumperConfigurator\DumperConfiguratorInterface;
 use Mygento\Antiseptic\Sanitizer\DumperConfigurator\GeneralSettings;
 use Mygento\Antiseptic\Sanitizer\DumperConfigurator\TransformTableRowHook;
 use Mygento\Antiseptic\Sanitizer\Faker\FakerInitializer;
+use Mygento\Antiseptic\Sanitizer\Faker\UniqueValueProcessor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Sanitizer
@@ -17,8 +19,9 @@ class Sanitizer
     public function sanitize(string $configFile, string $dumpFile, OutputInterface $output)
     {
         $configProcessor = new ConfigProcessor($configFile);
+        $faker = FakerInitializer::initialize();
         $dumperBuilder = new DumperBuilder();
-        $dumperConfigurator = new DumperConfiguratorComposite($this->getDumperConfigurators());
+        $dumperConfigurator = new DumperConfiguratorComposite($this->getDumperConfigurators($faker));
 
         $dumper = $this->getDumper($dumperBuilder, $configProcessor, $dumperConfigurator);
         $dumper->start($dumpFile);
@@ -34,11 +37,11 @@ class Sanitizer
         return $dumperBuilder->create();
     }
 
-    private function getDumperConfigurators(): array
+    private function getDumperConfigurators(Generator $faker): array
     {
         return [
             new GeneralSettings(),
-            new TransformTableRowHook(FakerInitializer::initialize()),
+            new TransformTableRowHook($faker, new UniqueValueProcessor($faker)),
         ];
     }
 }

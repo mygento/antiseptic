@@ -7,6 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 class ConfigProcessor
 {
     public const FORMATTER_KEY = 'formatter';
+    public const UNIQUE_KEY = 'unique';
 
     private const SOURCE_DB_KEY = 'source_db';
     private const DSN_KEY = 'dsn';
@@ -14,6 +15,8 @@ class ConfigProcessor
     private const PASS_KEY = 'pass';
     private const DUMP_SETTINGS_KEY = 'dump_settings';
     private const PDO_SETTINGS_KEY = 'pdo_settings';
+    private const TABLE_WHERES_KEY = 'table_wheres';
+    private const TABLE_LIMITS_KEY = 'table_limits';
 
     private const TABLES_KEY = 'tables';
 
@@ -48,6 +51,16 @@ class ConfigProcessor
     public function getPdoSettings(): array
     {
         return (array) ($this->config[self::SOURCE_DB_KEY][self::PDO_SETTINGS_KEY] ?? []);
+    }
+
+    public function getTableWheres(): array
+    {
+        return (array) ($this->config[self::SOURCE_DB_KEY][self::TABLE_WHERES_KEY] ?? []);
+    }
+
+    public function getTableLimits(): array
+    {
+        return (array) ($this->config[self::SOURCE_DB_KEY][self::TABLE_LIMITS_KEY] ?? []);
     }
 
     public function getProcessedTables(): array

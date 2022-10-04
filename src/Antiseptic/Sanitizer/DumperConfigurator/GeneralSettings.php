@@ -14,6 +14,8 @@ class GeneralSettings implements DumperConfiguratorInterface
             ->setUser($configProcessor->getUser())
             ->setPass($configProcessor->getPass())
             ->addDumpSettings($configProcessor->getDumpSettings())
-            ->addPdoSettings($configProcessor->getPdoSettings());
+            ->addPdoSettings($configProcessor->getPdoSettings())
+            ->addTableWheres($configProcessor->getTableWheres())
+            ->addTableLimits($configProcessor->getTableLimits());
     }
 }

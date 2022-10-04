@@ -6,6 +6,7 @@ use Faker\Generator as FakerGenerator;
 use Mygento\Antiseptic\Config\ConfigProcessor;
 use Mygento\Antiseptic\Dumper\DumperBuilder;
 use Mygento\Antiseptic\Sanitizer\Faker\ChecksumGenerator;
+use Mygento\Antiseptic\Sanitizer\Faker\UniqueValueProcessor;
 
 class TransformTableRowHook implements DumperConfiguratorInterface
 {
@@ -14,24 +15,40 @@ class TransformTableRowHook implements DumperConfiguratorInterface
      */
     private $faker;
 
+    /**
+     * @var UniqueValueProcessor
+     */
+    private $uniqueValueProcessor;
+
     public function __construct(
-        FakerGenerator $faker
+        FakerGenerator $faker,
+        UniqueValueProcessor $uniqueValueProcessor
     ) {
         $this->faker = $faker;
+        $this->uniqueValueProcessor = $uniqueValueProcessor;
     }
 
     public function configure(DumperBuilder $dumperBuilder, ConfigProcessor $configProcessor): void
     {
         $processedTables = $configProcessor->getProcessedTables();
-        $dumperBuilder->setTransformTableRowHook($this->getCallback($processedTables, $configProcessor, $this->faker));
+        $dumperBuilder->setTransformTableRowHook($this->getCallback(
+            $processedTables,
+            $configProcessor,
+            $this->faker,
+            $this->uniqueValueProcessor
+        ));
     }
 
     /**
      * @return callable
      */
-    private function getCallback(array $processedTables, ConfigProcessor $configProcessor, FakerGenerator $faker)
-    {
-        return static function ($tableName, array $row) use ($processedTables, $configProcessor, $faker) {
+    private function getCallback(
+        array $processedTables,
+        ConfigProcessor $configProcessor,
+        FakerGenerator $faker,
+        UniqueValueProcessor $uniqueValueProcessor
+    ) {
+        return function ($tableName, array $row) use ($processedTables, $configProcessor, $faker, $uniqueValueProcessor) {
             if (!in_array($tableName, $processedTables)) {
                 return $row;
             }
@@ -45,6 +62,12 @@ class TransformTableRowHook implements DumperConfiguratorInterface
                     (string) $row[$fieldName],
                     (string) $settings[ConfigProcessor::FORMATTER_KEY]
                 );
+
+                if (isset($settings[ConfigProcessor::UNIQUE_KEY]) && $settings[ConfigProcessor::UNIQUE_KEY] === true) {
+                    $row[$fieldName] = $uniqueValueProcessor->getUniqueValue((string) $row[$fieldName], $settings);
+
+                    continue;
+                }
 
                 $faker->seed($fieldChecksum);
                 $row[$fieldName] = $faker->{$settings[ConfigProcessor::FORMATTER_KEY]};
