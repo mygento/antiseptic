@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Config;
 
 use Symfony\Component\Yaml\Yaml;
@@ -8,7 +14,8 @@ class ConfigProcessor
 {
     public const FORMATTER_KEY = 'formatter';
     public const UNIQUE_KEY = 'unique';
-
+    public const DEFAULT_LOCALE = 'en_US';
+    private const LOCALE_KEY = 'locale';
     private const SOURCE_DB_KEY = 'source_db';
     private const DSN_KEY = 'dsn';
     private const USER_KEY = 'user';
@@ -17,15 +24,19 @@ class ConfigProcessor
     private const PDO_SETTINGS_KEY = 'pdo_settings';
     private const TABLE_WHERES_KEY = 'table_wheres';
     private const TABLE_LIMITS_KEY = 'table_limits';
-
     private const TABLES_KEY = 'tables';
 
     private $config;
 
     public function __construct(
-        string $fileName
+        string $fileName,
     ) {
         $this->config = Yaml::parseFile($fileName);
+    }
+
+    public function getLocale(): string
+    {
+        return (string) ($this->config[self::LOCALE_KEY] ?? self::DEFAULT_LOCALE);
     }
 
     public function getDsn(): string

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Sanitizer\Faker;
 
 use Faker\Generator;
@@ -23,7 +29,7 @@ class UniqueValueProcessor
     private $faker;
 
     public function __construct(
-        Generator $faker
+        Generator $faker,
     ) {
         $this->faker = $faker;
     }

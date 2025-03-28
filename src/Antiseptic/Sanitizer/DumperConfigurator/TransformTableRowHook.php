@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Sanitizer\DumperConfigurator;
 
 use Faker\Generator as FakerGenerator;
@@ -22,7 +28,7 @@ class TransformTableRowHook implements DumperConfiguratorInterface
 
     public function __construct(
         FakerGenerator $faker,
-        UniqueValueProcessor $uniqueValueProcessor
+        UniqueValueProcessor $uniqueValueProcessor,
     ) {
         $this->faker = $faker;
         $this->uniqueValueProcessor = $uniqueValueProcessor;
@@ -35,7 +41,7 @@ class TransformTableRowHook implements DumperConfiguratorInterface
             $processedTables,
             $configProcessor,
             $this->faker,
-            $this->uniqueValueProcessor
+            $this->uniqueValueProcessor,
         ));
     }
 
@@ -46,7 +52,7 @@ class TransformTableRowHook implements DumperConfiguratorInterface
         array $processedTables,
         ConfigProcessor $configProcessor,
         FakerGenerator $faker,
-        UniqueValueProcessor $uniqueValueProcessor
+        UniqueValueProcessor $uniqueValueProcessor,
     ) {
         return function ($tableName, array $row) use ($processedTables, $configProcessor, $faker, $uniqueValueProcessor) {
             if (!in_array($tableName, $processedTables)) {
@@ -60,7 +66,7 @@ class TransformTableRowHook implements DumperConfiguratorInterface
 
                 $fieldChecksum = ChecksumGenerator::generate(
                     (string) $row[$fieldName],
-                    (string) $settings[ConfigProcessor::FORMATTER_KEY]
+                    (string) $settings[ConfigProcessor::FORMATTER_KEY],
                 );
 
                 if (isset($settings[ConfigProcessor::UNIQUE_KEY]) && $settings[ConfigProcessor::UNIQUE_KEY] === true) {

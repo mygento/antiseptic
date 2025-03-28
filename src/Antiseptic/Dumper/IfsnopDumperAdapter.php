@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Dumper;
 
 use Ifsnop\Mysqldump\Mysqldump;
@@ -13,14 +19,14 @@ class IfsnopDumperAdapter implements DumperInterface
         $user = '',
         $pass = '',
         $dumpSettings = [],
-        $pdoSettings = []
+        $pdoSettings = [],
     ) {
         $this->dumper = new Mysqldump(
             $dsn,
             $user,
             $pass,
             $dumpSettings,
-            $pdoSettings
+            $pdoSettings,
         );
     }
 

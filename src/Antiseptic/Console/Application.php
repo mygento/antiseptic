@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;

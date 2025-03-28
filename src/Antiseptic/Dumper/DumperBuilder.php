@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Dumper;
 
 class DumperBuilder
@@ -123,7 +129,7 @@ class DumperBuilder
         $dumper = $this->createDumper();
 
         if (count($this->tableWheres)) {
-            $dumper->setTableLimits($this->tableWheres);
+            $dumper->setTableWheres($this->tableWheres);
         }
 
         if (count($this->tableLimits)) {
@@ -148,7 +154,7 @@ class DumperBuilder
             $this->user,
             $this->pass,
             $this->dumpSettings,
-            $this->pdoSettings
+            $this->pdoSettings,
         );
     }
 }

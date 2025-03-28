@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Mygento Team
+ * @copyright 2024 Mygento (https://www.mygento.com)
+ * @package Mygento_Antiseptic
+ */
+
 namespace Mygento\Antiseptic\Sanitizer;
 
 use Faker\Generator;
@@ -19,7 +25,7 @@ class Sanitizer
     public function sanitize(string $configFile, string $dumpFile, OutputInterface $output)
     {
         $configProcessor = new ConfigProcessor($configFile);
-        $faker = FakerInitializer::initialize();
+        $faker = FakerInitializer::initialize($configProcessor->getLocale());
         $dumperBuilder = new DumperBuilder();
         $dumperConfigurator = new DumperConfiguratorComposite($this->getDumperConfigurators($faker));
 
@@ -30,7 +36,7 @@ class Sanitizer
     private function getDumper(
         DumperBuilder $dumperBuilder,
         ConfigProcessor $configProcessor,
-        DumperConfiguratorInterface $dumperConfigurator
+        DumperConfiguratorInterface $dumperConfigurator,
     ): DumperInterface {
         $dumperConfigurator->configure($dumperBuilder, $configProcessor);
 
