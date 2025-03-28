@@ -29,6 +29,8 @@ CLI tool for securely anonymizing personal data from databases according to spec
 php antiseptic.phar sanitize [OPTIONS] OUTPUT_FILENAME
 ```
 
+`OUTPUT_FILENAME` - Path to output dump file, if not set, will be used stdout
+
 ### Core Options
 | Option               | Description                                                      |
 |----------------------|------------------------------------------------------------------|

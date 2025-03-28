@@ -28,7 +28,12 @@ class Sanitize extends Command
         $this
             ->setName('sanitize')
             ->setDefinition([
-                new InputArgument(self::ARG_DUMP_FILE, InputArgument::REQUIRED, 'Path to output dump file'),
+                new InputArgument(
+                    self::ARG_DUMP_FILE,
+                    InputArgument::OPTIONAL,
+                    'Path to output dump file, if not set will be used stdout',
+                    '',
+                ),
             ])
             ->addOption(
                 self::OPTION_NAME_CONFIG_FILE,
@@ -54,7 +59,7 @@ EOT,
         $dumpFile = $input->getArgument(self::ARG_DUMP_FILE);
 
         $sanitizer = new Sanitizer();
-        $sanitizer->sanitize($config, $dumpFile, $output);
+        $sanitizer->sanitize($config, $dumpFile);
 
         $output->writeln('<info>Dump created successfully</info>');
 

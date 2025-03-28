@@ -18,11 +18,10 @@ use Mygento\Antiseptic\Sanitizer\DumperConfigurator\GeneralSettings;
 use Mygento\Antiseptic\Sanitizer\DumperConfigurator\TransformTableRowHook;
 use Mygento\Antiseptic\Sanitizer\Faker\FakerInitializer;
 use Mygento\Antiseptic\Sanitizer\Faker\UniqueValueProcessor;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class Sanitizer
 {
-    public function sanitize(string $configFile, string $dumpFile, OutputInterface $output)
+    public function sanitize(string $configFile, string $dumpFile = '')
     {
         $configProcessor = new ConfigProcessor($configFile);
         $faker = FakerInitializer::initialize($configProcessor->getLocale());
