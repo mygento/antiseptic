@@ -69,5 +69,5 @@ jobs:
       - name: Upload to Releases
         uses: softprops/action-gh-release@v1
         with:
-          files: jeeves.phar
+          files: antiseptic.phar
           token: ${{ secrets.token }}
