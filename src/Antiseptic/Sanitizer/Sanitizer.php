@@ -15,7 +15,7 @@ use Mygento\Antiseptic\Sanitizer\Faker\UniqueValueProcessor;
 
 class Sanitizer
 {
-    public function sanitize(string $configFile, string $dumpFile = '')
+    public function sanitize(string $configFile, string $dumpFile = ''): void
     {
         $configProcessor = new ConfigProcessor($configFile);
         $faker = FakerInitializer::initialize($configProcessor->getLocale());
@@ -36,6 +36,9 @@ class Sanitizer
         return $dumperBuilder->create();
     }
 
+    /**
+     * @return DumperConfiguratorInterface[]
+     */
     private function getDumperConfigurators(Generator $faker): array
     {
         return [

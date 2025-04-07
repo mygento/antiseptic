@@ -6,14 +6,20 @@ use Ifsnop\Mysqldump\Mysqldump;
 
 class IfsnopDumperAdapter implements DumperInterface
 {
-    private $dumper;
+    private Mysqldump $dumper;
 
+    /**
+     * @param mixed[] $dumpSettings
+     * @param mixed[] $pdoSettings
+     *
+     * @throws \Exception
+     */
     public function __construct(
-        $dsn = '',
-        $user = '',
-        $pass = '',
-        $dumpSettings = [],
-        $pdoSettings = [],
+        string $dsn = '',
+        string $user = '',
+        string $pass = '',
+        array $dumpSettings = [],
+        array $pdoSettings = [],
     ) {
         $this->dumper = new Mysqldump(
             $dsn,
@@ -27,9 +33,9 @@ class IfsnopDumperAdapter implements DumperInterface
     /**
      * @throws \Exception
      */
-    public function start(string $fileName = '')
+    public function start(string $fileName = ''): void
     {
-        return $this->dumper->start($fileName);
+        $this->dumper->start($fileName);
     }
 
     public function setTransformTableRowHook($callable): void
@@ -42,11 +48,17 @@ class IfsnopDumperAdapter implements DumperInterface
         $this->dumper->setInfoHook($callable);
     }
 
+    /**
+     * @param mixed[] $tableWheres
+     */
     public function setTableWheres(array $tableWheres): void
     {
         $this->dumper->setTableWheres($tableWheres);
     }
 
+    /**
+     * @param mixed[] $tableLimits
+     */
     public function setTableLimits(array $tableLimits): void
     {
         $this->dumper->setTableLimits($tableLimits);

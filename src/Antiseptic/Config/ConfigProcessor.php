@@ -20,7 +20,10 @@ class ConfigProcessor
     private const TABLE_LIMITS_KEY = 'table_limits';
     private const TABLES_KEY = 'tables';
 
-    private $config;
+    /**
+     * @var mixed[]|null
+     */
+    private ?array $config;
 
     public function __construct(
         string $fileName,
@@ -48,34 +51,52 @@ class ConfigProcessor
         return (string) ($this->config[self::SOURCE_DB_KEY][self::PASS_KEY] ?? '');
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getDumpSettings(): array
     {
         return (array) ($this->config[self::SOURCE_DB_KEY][self::DUMP_SETTINGS_KEY] ?? []);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getPdoSettings(): array
     {
         return (array) ($this->config[self::SOURCE_DB_KEY][self::PDO_SETTINGS_KEY] ?? []);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getTableWheres(): array
     {
         return (array) ($this->config[self::SOURCE_DB_KEY][self::TABLE_WHERES_KEY] ?? []);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getTableLimits(): array
     {
         return (array) ($this->config[self::SOURCE_DB_KEY][self::TABLE_LIMITS_KEY] ?? []);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getProcessedTables(): array
     {
         return array_keys($this->config[self::TABLES_KEY] ?? []);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getFieldsConfigByTableName(string $tableName): array
     {
-        $processedTables = $this->config[self::TABLES_KEY];
+        $processedTables = $this->config[self::TABLES_KEY] ?? [];
 
         return (array) ($processedTables[$tableName] ?? []);
     }

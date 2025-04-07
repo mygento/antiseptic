@@ -8,26 +8,22 @@ use Mygento\Antiseptic\Config\ConfigProcessor;
 class UniqueValueProcessor
 {
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $checksumsWithNonUniqueValue = [];
+    private array $checksumsWithNonUniqueValue = [];
 
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $uniqueValues = [];
-
-    /**
-     * @var Generator
-     */
-    private $faker;
+    private array $uniqueValues = [];
 
     public function __construct(
-        Generator $faker,
-    ) {
-        $this->faker = $faker;
-    }
+        private Generator $faker,
+    ) {}
 
+    /**
+     * @param string[] $fieldConfig
+     */
     public function getUniqueValue(string $originalValue, array $fieldConfig): string
     {
         $formatter = (string) $fieldConfig[ConfigProcessor::FORMATTER_KEY];

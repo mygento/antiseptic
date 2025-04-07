@@ -4,50 +4,39 @@ namespace Mygento\Antiseptic\Dumper;
 
 class DumperBuilder
 {
-    /**
-     * @var string
-     */
-    private $dsn = '';
+    private string $dsn = '';
+    private string $user = '';
+    private string $pass = '';
 
     /**
-     * @var string
+     * @var mixed[]
      */
-    private $user = '';
+    private array $dumpSettings = [];
 
     /**
-     * @var string
+     * @var mixed[]
      */
-    private $pass = '';
+    private array $pdoSettings = [];
 
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $dumpSettings = [];
+    private array $tableWheres = [];
 
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $pdoSettings = [];
-
-    /**
-     * @var array
-     */
-    private $tableWheres = [];
-
-    /**
-     * @var array
-     */
-    private $tableLimits = [];
+    private array $tableLimits = [];
 
     /**
      * @var callable
      */
-    private $transformTableRowHook;
+    private mixed $transformTableRowHook = null;
 
     /**
      * @var callable
      */
-    private $infoHook;
+    private mixed $infoHook = null;
 
     public function setDsn(string $dsn): DumperBuilder
     {
@@ -70,6 +59,11 @@ class DumperBuilder
         return $this;
     }
 
+    /**
+     * @param mixed[] $dumpSettings
+     *
+     * @return $this
+     */
     public function addDumpSettings(array $dumpSettings): DumperBuilder
     {
         $this->dumpSettings = array_replace_recursive($this->dumpSettings, $dumpSettings);
@@ -77,6 +71,11 @@ class DumperBuilder
         return $this;
     }
 
+    /**
+     * @param mixed[] $pdoSettings
+     *
+     * @return $this
+     */
     public function addPdoSettings(array $pdoSettings): DumperBuilder
     {
         $this->pdoSettings = array_replace_recursive($this->pdoSettings, $pdoSettings);
@@ -84,6 +83,11 @@ class DumperBuilder
         return $this;
     }
 
+    /**
+     * @param mixed[] $tableWheres
+     *
+     * @return $this
+     */
     public function addTableWheres(array $tableWheres): DumperBuilder
     {
         $this->tableWheres = array_replace_recursive($this->tableWheres, $tableWheres);
@@ -91,6 +95,11 @@ class DumperBuilder
         return $this;
     }
 
+    /**
+     * @param mixed[] $tableLimits
+     *
+     * @return $this
+     */
     public function addTableLimits(array $tableLimits): DumperBuilder
     {
         $this->tableLimits = array_replace_recursive($this->tableLimits, $tableLimits);

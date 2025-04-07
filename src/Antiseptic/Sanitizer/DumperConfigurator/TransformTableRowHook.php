@@ -10,23 +10,10 @@ use Mygento\Antiseptic\Sanitizer\Faker\UniqueValueProcessor;
 
 class TransformTableRowHook implements DumperConfiguratorInterface
 {
-    /**
-     * @var FakerGenerator
-     */
-    private $faker;
-
-    /**
-     * @var UniqueValueProcessor
-     */
-    private $uniqueValueProcessor;
-
     public function __construct(
-        FakerGenerator $faker,
-        UniqueValueProcessor $uniqueValueProcessor,
-    ) {
-        $this->faker = $faker;
-        $this->uniqueValueProcessor = $uniqueValueProcessor;
-    }
+        private FakerGenerator $faker,
+        private UniqueValueProcessor $uniqueValueProcessor,
+    ) {}
 
     public function configure(DumperBuilder $dumperBuilder, ConfigProcessor $configProcessor): void
     {
@@ -40,7 +27,9 @@ class TransformTableRowHook implements DumperConfiguratorInterface
     }
 
     /**
-     * @return callable
+     * @param mixed[] $processedTables
+     *
+     * @return \Closure
      */
     private function getCallback(
         array $processedTables,

@@ -17,7 +17,7 @@ class Application extends BaseApplication
     /**
      * Initializes all commands.
      */
-    protected function getDefaultCommands()
+    protected function getDefaultCommands(): array
     {
         return array_merge(parent::getDefaultCommands(), [
             new Command\Sanitize(),

@@ -8,18 +8,11 @@ use Mygento\Antiseptic\Dumper\DumperBuilder;
 class DumperConfiguratorComposite implements DumperConfiguratorInterface
 {
     /**
-     * @var DumperConfiguratorInterface[]
-     */
-    private $configurators;
-
-    /**
      * @param DumperConfiguratorInterface[] $configurators
      */
     public function __construct(
-        array $configurators = [],
-    ) {
-        $this->configurators = $configurators;
-    }
+        private array $configurators = [],
+    ) {}
 
     public function configure(DumperBuilder $dumperBuilder, ConfigProcessor $configProcessor): void
     {

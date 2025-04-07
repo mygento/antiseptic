@@ -10,12 +10,10 @@ grumphp:
     phplint:
     phpcsfixer:
       config: '.php-cs-fixer.php'
-    phpcs:
-      warning_severity: 0
     xmllint:
     phpmd:
       ruleset: [ 'vendor/mygento/symfony-standard/phpmd.xml' ]
     phpstan:
-      level: 5
+      level: 8
       memory_limit: "-1"
-      ignore_patterns: ['test', 'vendor']
+      ignore_patterns: ['test', 'vendor', 'bootstrap.php']

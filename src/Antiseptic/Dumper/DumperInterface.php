@@ -4,10 +4,7 @@ namespace Mygento\Antiseptic\Dumper;
 
 interface DumperInterface
 {
-    /**
-     * @return null
-     */
-    public function start(string $fileName = '');
+    public function start(string $fileName = ''): void;
 
     /**
      * @param callable $callable
@@ -19,7 +16,13 @@ interface DumperInterface
      */
     public function setInfoHook($callable): void;
 
+    /**
+     * @param mixed[] $tableWheres
+     */
     public function setTableWheres(array $tableWheres): void;
 
+    /**
+     * @param mixed[] $tableLimits
+     */
     public function setTableLimits(array $tableLimits): void;
 }
