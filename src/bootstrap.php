@@ -3,11 +3,6 @@
 /**
  * @author Mygento Team
  * @copyright 2024 Mygento (https://www.mygento.com)
- * @package Mygento_Antiseptic
- */
-
-/**
- * @param mixed $file
  */
 function includeIfExists($file)
 {

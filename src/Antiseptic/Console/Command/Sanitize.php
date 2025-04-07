@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @author Mygento Team
- * @copyright 2024 Mygento (https://www.mygento.com)
- * @package Mygento_Antiseptic
- */
-
 namespace Mygento\Antiseptic\Console\Command;
 
 use Mygento\Antiseptic\Sanitizer\Sanitizer;
@@ -20,9 +14,6 @@ class Sanitize extends Command
     private const OPTION_NAME_CONFIG_FILE = 'config';
     private const ARG_DUMP_FILE = 'dump-file';
 
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
         $this
@@ -50,9 +41,6 @@ EOT,
             );
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $config = $input->getOption(self::OPTION_NAME_CONFIG_FILE);

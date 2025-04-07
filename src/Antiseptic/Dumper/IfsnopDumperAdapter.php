@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @author Mygento Team
- * @copyright 2024 Mygento (https://www.mygento.com)
- * @package Mygento_Antiseptic
- */
-
 namespace Mygento\Antiseptic\Dumper;
 
 use Ifsnop\Mysqldump\Mysqldump;
@@ -31,7 +25,6 @@ class IfsnopDumperAdapter implements DumperInterface
     }
 
     /**
-     * @inheritDoc
      * @throws \Exception
      */
     public function start(string $fileName = '')
@@ -39,17 +32,11 @@ class IfsnopDumperAdapter implements DumperInterface
         return $this->dumper->start($fileName);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setTransformTableRowHook($callable): void
     {
         $this->dumper->setTransformTableRowHook($callable);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setInfoHook($callable): void
     {
         $this->dumper->setInfoHook($callable);

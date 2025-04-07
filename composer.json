@@ -16,7 +16,7 @@
         "fakerphp/faker": "^1.20"
     },
     "require-dev": {
-        "mygento/coding-standard": "~2.14"
+        "mygento/symfony-standard": "^7.1"
     },
     "autoload": {
         "psr-4": { "Mygento\\Antiseptic\\": "src/Antiseptic" }

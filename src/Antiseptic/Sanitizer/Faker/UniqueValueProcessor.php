@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @author Mygento Team
- * @copyright 2024 Mygento (https://www.mygento.com)
- * @package Mygento_Antiseptic
- */
-
 namespace Mygento\Antiseptic\Sanitizer\Faker;
 
 use Faker\Generator;
@@ -71,7 +65,7 @@ class UniqueValueProcessor
         $increment = -1;
 
         do {
-            $increment++;
+            ++$increment;
             $checksSumSalt += $increment;
 
             $this->checksumsWithNonUniqueValue[$formatter][$originalChecksum] = $checksSumSalt;

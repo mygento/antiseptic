@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @author Mygento Team
- * @copyright 2024 Mygento (https://www.mygento.com)
- * @package Mygento_Antiseptic
- */
-
 namespace Mygento\Antiseptic\Sanitizer\DumperConfigurator;
 
 use Faker\Generator as FakerGenerator;
@@ -69,7 +63,7 @@ class TransformTableRowHook implements DumperConfiguratorInterface
                     (string) $settings[ConfigProcessor::FORMATTER_KEY],
                 );
 
-                if (isset($settings[ConfigProcessor::UNIQUE_KEY]) && $settings[ConfigProcessor::UNIQUE_KEY] === true) {
+                if (isset($settings[ConfigProcessor::UNIQUE_KEY]) && true === $settings[ConfigProcessor::UNIQUE_KEY]) {
                     $row[$fieldName] = $uniqueValueProcessor->getUniqueValue((string) $row[$fieldName], $settings);
 
                     continue;

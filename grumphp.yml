@@ -13,6 +13,8 @@ grumphp:
     phpcs:
       warning_severity: 0
     xmllint:
+    phpmd:
+      ruleset: [ 'vendor/mygento/symfony-standard/phpmd.xml' ]
     phpstan:
       level: 5
       memory_limit: "-1"
