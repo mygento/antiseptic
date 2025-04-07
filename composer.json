@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Mygento",
-            "email": "connect@mygento.net"
+            "email": "connect@mygento.com"
         }
     ],
     "description": "Cli tool to dump database and anonymize data",
