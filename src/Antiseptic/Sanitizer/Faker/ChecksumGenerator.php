@@ -6,6 +6,6 @@ class ChecksumGenerator
 {
     public static function generate(string ...$values): int
     {
-        return crc32(implode($values));
+        return (int) hash('crc32', implode($values));
     }
 }

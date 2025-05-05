@@ -3,7 +3,6 @@
 namespace Mygento\Antiseptic\Sanitizer\Faker;
 
 use Faker\Generator;
-use Mygento\Antiseptic\Config\ConfigProcessor;
 
 class UniqueValueProcessor
 {
@@ -22,19 +21,19 @@ class UniqueValueProcessor
     ) {}
 
     /**
-     * @param string[] $fieldConfig
+     * @param mixed[] $formatterArgs
      */
-    public function getUniqueValue(string $originalValue, array $fieldConfig): string
+    public function getUniqueValue(string $originalValue, string $formatter, array $formatterArgs = []): string
     {
-        $formatter = (string) $fieldConfig[ConfigProcessor::FORMATTER_KEY];
         $checkSum = ChecksumGenerator::generate($originalValue, $formatter);
 
         if (isset($this->checksumsWithNonUniqueValue[$formatter][$checkSum])) {
-            return $this->processChecksumWithNonUniqueValue($checkSum, $originalValue, $formatter);
+            return $this->processChecksumWithNonUniqueValue($checkSum, $originalValue, $formatter, $formatterArgs);
         }
 
         $this->faker->seed($checkSum);
-        $sanitizedValue = $this->faker->{$formatter};
+        // @phpstan-ignore-next-line
+        $sanitizedValue = call_user_func([$this->faker, $formatter], ...$formatterArgs);
 
         if (!$this->isValueUnique($sanitizedValue, $originalValue, $formatter)) {
             return $this->processNonUniqueValue($checkSum, $originalValue, $formatter);
@@ -45,11 +44,18 @@ class UniqueValueProcessor
         return $sanitizedValue;
     }
 
-    private function processChecksumWithNonUniqueValue(int $checkSum, string $originalValue, string $formatter): string
-    {
+    /**
+     * @param mixed[] $formatterArgs
+     */
+    private function processChecksumWithNonUniqueValue(
+        int $checkSum,
+        string $originalValue,
+        string $formatter,
+        array $formatterArgs,
+    ): string {
         $this->faker->seed($checkSum + $this->checksumsWithNonUniqueValue[$formatter][$checkSum]);
-
-        $value = $this->faker->{$formatter};
+        // @phpstan-ignore-next-line
+        $value = call_user_func([$this->faker, $formatter], ...$formatterArgs);
         $this->uniqueValues[$formatter][$value] = $originalValue;
 
         return $value;

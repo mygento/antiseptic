@@ -7,6 +7,8 @@ use Symfony\Component\Yaml\Yaml;
 class ConfigProcessor
 {
     public const FORMATTER_KEY = 'formatter';
+    public const FORMATTER_NAME = 'name';
+    public const FORMATTER_ARGS = 'args';
     public const UNIQUE_KEY = 'unique';
     public const DEFAULT_LOCALE = 'en_US';
     private const LOCALE_KEY = 'locale';
@@ -99,5 +101,34 @@ class ConfigProcessor
         $processedTables = $this->config[self::TABLES_KEY] ?? [];
 
         return (array) ($processedTables[$tableName] ?? []);
+    }
+
+    /**
+     * @param mixed[] $fieldSettings
+     */
+    public function getFormatter(array $fieldSettings): string
+    {
+        return is_array($fieldSettings[ConfigProcessor::FORMATTER_KEY]) ?
+            $fieldSettings[ConfigProcessor::FORMATTER_KEY][ConfigProcessor::FORMATTER_NAME]
+            : $fieldSettings[ConfigProcessor::FORMATTER_KEY];
+    }
+
+    /**
+     * @param mixed[] $fieldSettings
+     *
+     * @return mixed[]
+     */
+    public function getFormatterArgs(array $fieldSettings): array
+    {
+        if (
+            is_array($fieldSettings[ConfigProcessor::FORMATTER_KEY])
+            && array_key_exists(ConfigProcessor::FORMATTER_ARGS, $fieldSettings[ConfigProcessor::FORMATTER_KEY])
+        ) {
+            $formatterArgs = $fieldSettings[ConfigProcessor::FORMATTER_KEY][ConfigProcessor::FORMATTER_ARGS];
+        } else {
+            $formatterArgs = [];
+        }
+
+        return $formatterArgs;
     }
 }

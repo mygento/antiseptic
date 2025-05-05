@@ -1,4 +1,4 @@
-locale: 'ru_RU'
+locale: 'en_US'
 source_db:
   dsn: 'mysql:host=<host>;port=<port>;dbname=<dbname>'
   user: 'dbusername'

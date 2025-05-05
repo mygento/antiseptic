@@ -47,19 +47,27 @@ class TransformTableRowHook implements DumperConfiguratorInterface
                     continue;
                 }
 
+                $formatter = $configProcessor->getFormatter($settings);
+                $formatterArgs = $configProcessor->getFormatterArgs($settings);
+
                 $fieldChecksum = ChecksumGenerator::generate(
                     (string) $row[$fieldName],
-                    (string) $settings[ConfigProcessor::FORMATTER_KEY],
+                    $formatter,
                 );
 
                 if (isset($settings[ConfigProcessor::UNIQUE_KEY]) && true === $settings[ConfigProcessor::UNIQUE_KEY]) {
-                    $row[$fieldName] = $uniqueValueProcessor->getUniqueValue((string) $row[$fieldName], $settings);
+                    $row[$fieldName] = $uniqueValueProcessor->getUniqueValue(
+                        (string) $row[$fieldName],
+                        $formatter,
+                        $formatterArgs,
+                    );
 
                     continue;
                 }
 
                 $faker->seed($fieldChecksum);
-                $row[$fieldName] = $faker->{$settings[ConfigProcessor::FORMATTER_KEY]};
+
+                $row[$fieldName] = call_user_func([$faker, $formatter], ...$formatterArgs); // @phpstan-ignore-line
             }
 
             return $row;

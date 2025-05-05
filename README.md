@@ -80,6 +80,15 @@ This section of the config is compatible with [settings](https://github.com/ifsn
 ### section config `tables`
 This section of the config describes which table and fields from the table should be replaced with fake data.   
 Formatter can be set any formatter from [list formatters](https://fakerphp.org/formatters/)
+You can pass args to the formatter function using the following syntax: 
+```yaml
+  customer_address_entity:
+    telephone:
+      formatter:
+        name: 'numerify'
+        args:
+          - '(###) ###-##-##'
+```
 
 ## 📝 Note
  - If you set a limit or condition to select some records from a table,    

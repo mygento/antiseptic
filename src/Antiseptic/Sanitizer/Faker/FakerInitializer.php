@@ -9,9 +9,6 @@ class FakerInitializer
 {
     public static function initialize(string $locale = Factory::DEFAULT_LOCALE): Generator
     {
-        $faker = Factory::create($locale);
-        $faker->addProvider(new PhoneNumberProvider($faker));
-
-        return $faker;
+        return Factory::create($locale);
     }
 }
