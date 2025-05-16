@@ -1,0 +1,33 @@
+{
+    "name": "mygento/antiseptic",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mygento",
+            "email": "connect@mygento.com"
+        }
+    ],
+    "description": "Cli tool to dump database and anonymize data",
+    "require": {
+        "symfony/console": "^v6.4",
+        "symfony/yaml": "^v6.4",
+        "ifsnop/mysqldump-php": "^2.9",
+        "fakerphp/faker": "^1.20"
+    },
+    "require-dev": {
+        "mygento/symfony-standard": "^7.1"
+    },
+    "autoload": {
+        "psr-4": { "Mygento\\Antiseptic\\": "src/Antiseptic" }
+    },
+    "config": {
+        "platform": {
+            "php": "8.1"
+        },
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
+    },
+    "bin": ["bin/antiseptic"]
+}

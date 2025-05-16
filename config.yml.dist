@@ -1,0 +1,23 @@
+locale: 'en_US'
+source_db:
+  dsn: 'mysql:host=<host>;port=<port>;dbname=<dbname>'
+  user: 'dbusername'
+  pass: 'dbpassword'
+  table_wheres:
+    admin_user: "`username` = 'admin'" # leave only one user with name admin
+  table_limits:
+    cache: 0 # create empty table
+  dump_settings:
+    exclude-tables:
+      - '/_tmp$/'
+tables: #list tables and fields for anonymize data
+  customer:
+    email:
+      formatter: 'email'
+      unique: true
+    firstname:
+      formatter: 'firstName'
+    lastname:
+      formatter: 'lastName'
+
+

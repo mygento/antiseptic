@@ -1,0 +1,119 @@
+locale: 'en_US'
+source_db:
+  dsn: 'mysql:host=<host>;port=<port>;dbname=<dbname>'
+  user: 'dbusername'
+  pass: 'dbpassword'
+  table_wheres:
+    admin_user: "`username` = 'admin'" # leave only one user with name admin
+  table_limits:
+    admin_user_session: 0 # clear not relevant data
+    cache: 0
+    cron_schedule: 0
+    customer_grid_flat: 0
+    customer_log: 0
+    customer_visitor: 0
+    email_abandoned_cart: 0
+    email_automation: 0
+    importexport_importdata: 0
+    login_as_customer: 0
+    newsletter_queue: 0
+    queue_message: 0
+    queue_message_status: 0
+  dump_settings:
+    exclude-tables:
+      - '/_cl$/'
+      - '/_replica$/'
+      - '/_tmp$/'
+      - '/_flat$/'
+tables:
+  customer_entity:
+    email:
+      formatter: 'email'
+      unique: true
+    firstname:
+      formatter: 'firstName'
+    lastname:
+      formatter: 'lastName'
+  customer_address_entity:
+    telephone:
+      formatter: 'phoneNumber'
+      unique: true
+    postcode:
+      formatter: 'postcode'
+    firstname:
+      formatter: 'firstName'
+    lastname:
+      formatter: 'lastName'
+  newsletter_subscriber:
+    subscriber_email:
+      formatter: 'email'
+  quote:
+    customer_email:
+      formatter: 'email'
+    customer_firstname:
+      formatter: 'firstName'
+    customer_lastname:
+      formatter: 'lastName'
+  quote_address:
+    email:
+      formatter: 'email'
+    telephone:
+      formatter:
+        name: 'numerify'
+        args:
+          - '(###) ###-##-##'
+    postcode:
+      formatter: 'postcode'
+    firstname:
+      formatter: 'firstName'
+    lastname:
+      formatter: 'lastName'
+  sales_creditmemo_grid:
+    billing_name:
+      formatter: 'name'
+    billing_address:
+      formatter: 'address'
+    shipping_address:
+      formatter: 'address'
+    customer_name:
+      formatter: 'name'
+    customer_email:
+      formatter: 'email'
+  sales_invoice_grid:
+    billing_name:
+      formatter: 'name'
+    billing_address:
+      formatter: 'address'
+    shipping_address:
+      formatter: 'address'
+    customer_name:
+      formatter: 'name'
+    customer_email:
+      formatter: 'email'
+  sales_order:
+    customer_email:
+      formatter: 'email'
+    customer_firstname:
+      formatter: 'firstName'
+    customer_lastname:
+      formatter: 'lastName'
+  sales_order_address:
+    email:
+      formatter: 'email'
+    telephone:
+      formatter: 'phoneNumber'
+    firstname:
+      formatter: 'firstName'
+    lastname:
+      formatter: 'lastName'
+  sales_order_grid:
+    customer_email:
+      formatter: 'email'
+  sales_shipment_grid:
+    customer_name:
+      formatter: 'name'
+    customer_email:
+      formatter: 'email'
+
+
+

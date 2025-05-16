@@ -1,0 +1,19 @@
+grumphp:
+  tasks:
+    composer:
+      no_check_lock: true
+    git_blacklist:
+      keywords:
+        - "die("
+        - "var_dump("
+        - "exit;"
+    phplint:
+    phpcsfixer:
+      config: '.php-cs-fixer.php'
+    xmllint:
+    phpmd:
+      ruleset: [ 'vendor/mygento/symfony-standard/phpmd.xml' ]
+    phpstan:
+      level: 8
+      memory_limit: "-1"
+      ignore_patterns: ['test', 'vendor', 'bootstrap.php']

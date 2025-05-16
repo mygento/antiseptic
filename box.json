@@ -1,0 +1,35 @@
+{
+  "directories": ["src", "bin","vendor"],
+  "compression": "GZ",
+  "finder": [
+    {
+      "name": "*.php",
+      "notName": "/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/",
+      "exclude": [
+        "tests",
+        "spec",
+        "doc",
+        "test",
+        "Tests",
+        "fixtures",
+        "gitonomy",
+        "ondram",
+        "squizlabs",
+        "seld",
+        "phpstan",
+        "phpmd",
+        "php-parallel-lint",
+        "pdepend",
+        "php-cs-fixer",
+        "monolog",
+        "magento",
+        "mygento",
+        "webonyx",
+        "phpro"
+      ],
+      "in": "vendor"
+    }
+  ],
+  "main": "bin/antiseptic",
+  "output": "antiseptic.phar"
+}
